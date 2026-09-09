@@ -1,0 +1,60 @@
+# ==========================================
+# Sensitive Credentials & Personal Info
+# ==========================================
+.env
+.env.*
+!.env.example
+*.env
+*.key
+*.pem
+
+# ==========================================
+# Browser Data & Persistent User Profiles
+# (Contains personal cookies, session tokens & cache)
+# ==========================================
+browser_profile/
+user_data_dir/
+user_data/
+*.pma
+Crashpad/
+
+# ==========================================
+# Class Recordings & AI Generated Summaries
+# (Private academic recordings and notes)
+# ==========================================
+recordings/*
+!recordings/.gitkeep
+output/*
+!output/.gitkeep
+*.webm
+*.mp4
+*.m4a
+*.wav
+*.mp3
+
+# ==========================================
+# Python Virtual Environments & Dependencies
+# ==========================================
+.venv/
+venv/
+ENV/
+env/
+
+# ==========================================
+# Python Bytecode & Cache
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# ==========================================
+# Logs & System Files
+# ==========================================
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
