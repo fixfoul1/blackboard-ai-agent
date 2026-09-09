@@ -117,17 +117,21 @@ async def get_history():
 
 @app.get("/api/summary/{summary_name}")
 async def get_summary_content(summary_name: str):
-    file_path = Config.OUTPUT_DIR / summary_name
-    if not file_path.exists():
+    # Prevent path traversal attacks
+    safe_name = Path(summary_name).name
+    file_path = (Config.OUTPUT_DIR / safe_name).resolve()
+    if not file_path.is_relative_to(Config.OUTPUT_DIR.resolve()) or not file_path.exists():
         raise HTTPException(status_code=404, detail="Summary not found")
     return {"markdown": file_path.read_text(encoding="utf-8")}
 
 @app.get("/api/download/audio/{filename}")
 async def download_audio(filename: str):
-    file_path = Config.RECORDINGS_DIR / filename
-    if not file_path.exists():
+    # Prevent path traversal attacks
+    safe_name = Path(filename).name
+    file_path = (Config.RECORDINGS_DIR / safe_name).resolve()
+    if not file_path.is_relative_to(Config.RECORDINGS_DIR.resolve()) or not file_path.exists():
         raise HTTPException(status_code=404, detail="File not found")
-    return FileResponse(file_path, media_type="audio/webm", filename=filename)
+    return FileResponse(file_path, media_type="audio/webm", filename=safe_name)
 
 if __name__ == "__main__":
     import uvicorn
